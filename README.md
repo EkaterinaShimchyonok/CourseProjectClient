@@ -1,2 +1,2 @@
-# CourseProjectClient
-Java project 5 term ClientApp
+# CourseProject
+Java project 5 term
