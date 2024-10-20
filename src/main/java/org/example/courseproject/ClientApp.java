@@ -14,7 +14,7 @@ public class ClientApp extends Application {
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
-    void register(Stage primaryStage)
+    public void register(Stage primaryStage)
     {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/registration.fxml"));
@@ -25,7 +25,7 @@ public class ClientApp extends Application {
             e.printStackTrace();
         }
     }
-    void login(Stage primaryStage)
+    public void login(Stage primaryStage)
     {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
@@ -36,7 +36,7 @@ public class ClientApp extends Application {
             e.printStackTrace();
         }
     }
-    void showStartView(Stage primaryStage) {
+    public void showStartView(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/start.fxml"));
             primaryStage.setTitle("Главная");

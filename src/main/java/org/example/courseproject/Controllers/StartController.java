@@ -1,7 +1,8 @@
-package org.example.courseproject;
+package org.example.courseproject.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import org.example.courseproject.ClientApp;
 
 public class StartController {
 

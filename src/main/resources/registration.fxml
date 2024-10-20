@@ -4,9 +4,10 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.courseproject.RegisterController">
+<?import javafx.scene.control.Label?>
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.courseproject.Controllers.RegisterController">
     <children>
+        <Label fx:id="responseLabel" />
         <TextField fx:id="emailInput" promptText="Email"/>
         <PasswordField fx:id="passwordInput" promptText="Password"/>
         <Button text="Зарегистрироваться" onAction="#handleRegister"/>

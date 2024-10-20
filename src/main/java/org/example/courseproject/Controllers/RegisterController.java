@@ -1,4 +1,4 @@
-package org.example.courseproject;
+package org.example.courseproject.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.courseproject.ClientApp;
 
 import java.io.BufferedReader;
 import java.io.IOException;

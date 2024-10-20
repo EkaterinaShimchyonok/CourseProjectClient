@@ -1,4 +1,4 @@
-package org.example.courseproject;
+package org.example.courseproject.Controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
