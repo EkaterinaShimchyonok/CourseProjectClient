@@ -2,10 +2,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -17,6 +13,7 @@
             <padding>
                 <Insets top="10.0" right="10.0" bottom="20.0" left="10.0"/>
             </padding>
+            <Button onAction="#handleHome" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Главная</Button>
             <Button onAction="#handleLogout" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Выйти из аккаунта</Button>
             <Button onAction="#handleProfile" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Личный кабинет</Button>
             <Button onAction="#handlePlan" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">План питания</Button>
@@ -38,25 +35,15 @@
 
     <!-- Основное содержимое -->
     <center>
-        <VBox alignment="CENTER" spacing="20.0">
-            <HBox alignment="CENTER" spacing="20.0">
-                <Label fx:id="contentLabel" text="Добро пожаловать!" style="-fx-font-size: 24px;"/>
-            </HBox>
-            <VBox alignment="CENTER" spacing="10.0">
-                <HBox spacing="10.0" alignment="CENTER">
-                    <Label text="Email:"/>
-                    <TextField fx:id="emailField" editable="false" />
-                </HBox>
-                <HBox spacing="10.0" alignment="CENTER">
-                    <Label text="Name:"/>
-                    <TextField fx:id="nameField" />
-                </HBox>
-                <HBox spacing="10.0" alignment="CENTER">
-                    <Label text="Age:"/>
-                    <TextField fx:id="ageField" />
-                </HBox>
-                <Button text="Применить изменения" onAction="#handleApplyChanges" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
-            </VBox>
+        <VBox fx:id="mainContent" alignment="CENTER" spacing="5.0">
+            <Label fx:id="contentLabel" text="Добро пожаловать!" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-alignment: center;"/>
+            <Label text="Это приложение призвано помочь построить сбалансированный рацион" style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="на основе мониторинга состава продуктов питания." style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="Правильное питание — ключ к здоровью и профилактике заболеваний." style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="Недостаток питательных веществ может привести к проблемам со здоровьем." style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="Разработано в рамках курсового проекта 5 семестра на Java." style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="В случае возникновения проблем, напишите нам:" style="-fx-font-size: 18px; -fx-text-alignment: center;"/>
+            <Label text="shimchyonokat@gmail.com" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-alignment: center;"/>
         </VBox>
     </center>
 </BorderPane>
