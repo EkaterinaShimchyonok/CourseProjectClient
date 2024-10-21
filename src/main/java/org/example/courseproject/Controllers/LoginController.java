@@ -1,27 +1,28 @@
 package org.example.courseproject.Controllers;
 
+import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.courseproject.ClientApp;
+import org.example.courseproject.POJO.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.regex.Pattern;
 
 public class LoginController {
-    @FXML
-    private Label responseLabel;
+    private static Stage primaryStage;
     @FXML
     private TextField emailInput;
+    @FXML
+    private Label responseLabel;
     @FXML
     private PasswordField passwordInput;
 
@@ -39,13 +40,42 @@ public class LoginController {
             try {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
-                    final String response = serverResponse;
-                    Platform.runLater(() -> responseLabel.setText(response));
+                    if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз"))
+                    {
+                        final String response = serverResponse;
+                        Platform.runLater(() -> responseLabel.setText(response));
+                    }
+                    else
+                    {
+                        final User user = parseUser(serverResponse);
+                        Platform.runLater(() -> showMainPage(user));
+                    }
                 }
             } catch (IOException e) {
                 System.err.println("Не удалось получить ответ от сервера: " + e.getMessage());
             }
         }).start();
+    }
+
+    private User parseUser(String serverResponse) {
+        // Преобразование строки в объект User
+        User user = new Gson().fromJson(serverResponse, User.class);
+        System.out.println(serverResponse);
+        return user;
+    }
+
+    private void showMainPage(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
+            Parent root = loader.load();
+            MainController mainController = loader.getController();
+            mainController.setUser(user); // Передаем объект User контроллеру новой страницы
+            primaryStage.setTitle("Здравствуйте, " + user.getInfo().getName());
+            primaryStage.setScene(new Scene(root, 900, 600));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -60,41 +90,15 @@ public class LoginController {
         String email = emailInput.getText();
         String password = passwordInput.getText();
 
-        if (!isValidEmail(email)) {
-            responseLabel.setText("Некорректный email");
-            return;
-        }
 
-        if (!isValidPassword(password)) {
-            responseLabel.setText("Пароль должен быть минимум 8 символов, содержать только латинские буквы, цифры и _");
-            return;
-        }
+        out.println("login;" + email + ";" + RegisterController.hashPassword(password));
 
-        out.println("login;" + email + ";" + hashPassword(password));
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();
         passwordInput.clear();
     }
 
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
-        Pattern emailPattern = Pattern.compile(emailRegex);
-        return emailPattern.matcher(email).matches();
-    }
-
-    private boolean isValidPassword(String password) {
-        String passwordRegex = "^[a-zA-Z0-9_]{8,}$";
-        Pattern passwordPattern = Pattern.compile(passwordRegex);
-        return passwordPattern.matcher(password).matches();
-    }
-
-    public static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(encodedhash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    public static void setPrimaryStage(Stage stage) {
+        primaryStage = stage;
     }
 }

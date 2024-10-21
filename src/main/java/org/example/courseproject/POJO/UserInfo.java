@@ -11,6 +11,18 @@ public class UserInfo {
     double goal;
     Nutrients norm;
 
+    public UserInfo(int uinfoID, String name, int age, boolean male, double h, double w, int activity, double g, Nutrients norm) {
+        this.uinfoID = uinfoID;
+        this.name = name;
+        this.age = age;
+        this.male = male;
+        this.height = h;
+        this.weight = w;
+        this.activity_level = activity;
+        this.goal = g;
+        this.norm = norm;
+    }
+
     public int getUinfoID() {
         return uinfoID;
     }

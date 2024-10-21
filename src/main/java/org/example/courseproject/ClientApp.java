@@ -5,8 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
-
+import org.example.courseproject.Controllers.LoginController;
 
 public class ClientApp extends Application {
     private static Stage primaryStage;
@@ -18,7 +17,7 @@ public class ClientApp extends Application {
     {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/registration.fxml"));
-            primaryStage.setTitle("Registration");
+            primaryStage.setTitle("Регистрация");
             primaryStage.setScene(new Scene(root, 300, 200));
             primaryStage.show();
         } catch (Exception e) {
@@ -28,8 +27,9 @@ public class ClientApp extends Application {
     public void login(Stage primaryStage)
     {
         try {
+            LoginController.setPrimaryStage(primaryStage);
             Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
-            primaryStage.setTitle("Login");
+            primaryStage.setTitle("Вход");
             primaryStage.setScene(new Scene(root, 300, 200));
             primaryStage.show();
         } catch (Exception e) {
@@ -51,6 +51,7 @@ public class ClientApp extends Application {
     public void start(Stage primaryStage) {
         ClientApp.primaryStage = primaryStage;
         showStartView(primaryStage);
+
     }
 
 

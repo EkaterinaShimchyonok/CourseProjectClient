@@ -9,7 +9,8 @@ public class Minerals {
     double cu;
     double se;
 
-    public Minerals(double ca, double fe, double mg, double zn, double cu, double se) {
+    public Minerals(int id, double ca, double fe, double mg, double zn, double cu, double se) {
+        this.mineralsID = id;
         this.ca = ca;
         this.fe = fe;
         this.mg = mg;

@@ -5,16 +5,17 @@ import java.util.Date;
 
 public class FoodPlan {
     int planID;
+    int userID;
     ArrayList<Product> products;
     double[] weights;
-    int userID;
-    User user;
     Date date;
     double totalCal;
 
-    public FoodPlan(int planID, int userID, Date date, double totalCal) {
+    public FoodPlan(int planID, ArrayList<Product> prods, double[] weights, int userID, Date date, double totalCal) {
         this.planID = planID;
         this.userID = userID;
+        this.products = prods;
+        this.weights = weights;
         this.date = date;
         this.totalCal = totalCal;
     }
@@ -33,14 +34,6 @@ public class FoodPlan {
 
     public void setUserID(int userID) {
         this.userID = userID;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Date getDate() {

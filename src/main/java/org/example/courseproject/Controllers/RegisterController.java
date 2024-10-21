@@ -55,6 +55,7 @@ public class RegisterController {
         app.showStartView(stage);
     }
 
+
     @FXML
     private void handleRegister() {
         String email = emailInput.getText();
@@ -76,13 +77,13 @@ public class RegisterController {
         passwordInput.clear();
     }
 
-    private boolean isValidEmail(String email) {
+    private static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
         Pattern emailPattern = Pattern.compile(emailRegex);
         return emailPattern.matcher(email).matches();
     }
 
-    private boolean isValidPassword(String password) {
+    private static boolean isValidPassword(String password) {
         String passwordRegex = "^[a-zA-Z0-9_]{8,}$";
         Pattern passwordPattern = Pattern.compile(passwordRegex);
         return passwordPattern.matcher(password).matches();

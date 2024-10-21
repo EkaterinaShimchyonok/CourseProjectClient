@@ -8,7 +8,8 @@ public class Product {
     String categoryName;
     Nutrients nutrients;
 
-    public Product(String name, boolean isCoocked, String image, String categoryName, Nutrients nutrients) {
+    public Product(int id, String name, boolean isCoocked, String image, String categoryName, Nutrients nutrients) {
+        this.productID = id;
         this.name = name;
         this.isCoocked = isCoocked;
         this.image = image;
