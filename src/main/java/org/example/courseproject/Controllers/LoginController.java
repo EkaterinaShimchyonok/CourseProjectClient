@@ -70,7 +70,10 @@ public class LoginController {
             Parent root = loader.load();
             MainController mainController = loader.getController();
             mainController.setUser(user); // Передаем объект User контроллеру новой страницы
-            primaryStage.setTitle("Здравствуйте, " + user.getInfo().getName());
+            String title = "Здравствуйте ";
+            if(user.getInfo().getName()!=null){
+                title += user.getInfo().getName();}
+            primaryStage.setTitle(title);
             primaryStage.setScene(new Scene(root, 900, 600));
             primaryStage.show();
         } catch (IOException e) {

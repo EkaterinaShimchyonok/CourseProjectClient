@@ -9,6 +9,15 @@ public class Minerals {
     double cu;
     double se;
 
+    public Minerals(){
+        this.mineralsID = 0;
+        this.ca = 0;
+        this.fe = 0;
+        this.mg = 0;
+        this.zn = 0;
+        this.cu = 0;
+        this.se = 0;
+    }
     public Minerals(int id, double ca, double fe, double mg, double zn, double cu, double se) {
         this.mineralsID = id;
         this.ca = ca;

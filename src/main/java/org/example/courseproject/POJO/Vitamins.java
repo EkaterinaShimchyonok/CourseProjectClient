@@ -9,6 +9,16 @@ public class Vitamins {
     double c;
     double b12;
 
+    public Vitamins() {
+        this.vitaminsID = 0;
+        this.a = 0;
+        this.d = 0;
+        this.e = 0;
+        this.k = 0;
+        this.c = 0;
+        this.b12 = 0;
+    }
+
     public Vitamins(int vitaminsID, double a, double d, double e, double c, double k, double b12) {
         this.vitaminsID = vitaminsID;
         this.a = a;
