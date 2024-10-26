@@ -19,7 +19,6 @@ public class DailyIntakeController {
     public void setUser(User us) {
         this.user = us;
         double condition = user.getInfo().getAge() * user.getInfo().getHeight() * user.getInfo().getWeight();
-        System.out.println(condition);
         if (condition != 0.0) {
             vitaminsLabel.setText(formatVitamins());
             mineralsLabel.setText(formatMinerals());

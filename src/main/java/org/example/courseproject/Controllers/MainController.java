@@ -103,7 +103,14 @@ public class MainController {
     @FXML
     private void handleUsers() {
         contentLabel.setText("Пользователи");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/users.fxml"));
+            Node usersContent = loader.load();
+            UsersController usersController = loader.getController();
+            mainContent.getChildren().setAll(usersContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
