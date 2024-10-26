@@ -72,6 +72,21 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void handleDailyIntake() {
+        contentLabel.setText("Мои суточные нормы");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dailyIntake.fxml"));
+            Node dailyIntakeContent = loader.load();
+            DailyIntakeController dailyIntakeController = loader.getController();
+            dailyIntakeController.setUser(user);
+            mainContent.getChildren().setAll(dailyIntakeContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void handlePlan() {

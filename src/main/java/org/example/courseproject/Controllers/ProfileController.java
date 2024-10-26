@@ -22,9 +22,9 @@ public class ProfileController {
     private ComboBox<String> activityLevelComboBox;
     @FXML
     private TextField goalField;
-
     private User user;
 
+    @FXML
     public void setUser(User user) {
         this.user = user;
         emailField.setText(user.getEmail());
@@ -51,18 +51,16 @@ public class ProfileController {
     private String getActivityLevelString(int level) {
         switch (level) {
             case 1: return "1 - Низкий";
-            case 2: return "2 - Средний";
             case 3: return "3 - Высокий";
-            default: return "";
+            default: return "2 - Средний";
         }
     }
 
     private int getActivityLevelInt(String level) {
         switch (level) {
             case "1 - Низкий": return 1;
-            case "2 - Средний": return 2;
             case "3 - Высокий": return 3;
-            default: return 0;
+            default: return 2;
         }
     }
 }

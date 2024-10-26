@@ -16,6 +16,7 @@
             <Button onAction="#handleHome" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Главная</Button>
             <Button onAction="#handleLogout" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Выйти из аккаунта</Button>
             <Button onAction="#handleProfile" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Личный кабинет</Button>
+            <Button onAction="#handleDailyIntake" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Мои суточные нормы</Button>
             <Button onAction="#handlePlan" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">План питания</Button>
             <Button onAction="#handleStats" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Моя статистика</Button>
             <Button onAction="#handleUsers" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Пользователи</Button>

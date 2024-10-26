@@ -4,7 +4,6 @@ public class Product {
     int productID;
     String name;
     boolean isCoocked;
-    String image;
     String categoryName;
     Nutrients nutrients;
 
@@ -12,7 +11,6 @@ public class Product {
         this.productID = id;
         this.name = name;
         this.isCoocked = isCoocked;
-        this.image = image;
         this.categoryName = categoryName;
         this.nutrients = nutrients;
     }
@@ -39,14 +37,6 @@ public class Product {
 
     public void setCoocked(boolean coocked) {
         isCoocked = coocked;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getCategoryName() {
