@@ -1,4 +1,6 @@
 package org.example.courseproject.POJO;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class UserInfo {
     int uinfoID;
@@ -11,10 +13,16 @@ public class UserInfo {
     double goal;
     Nutrients norm;
 
-    public UserInfo(){
-        name = new String();
-        norm = new Nutrients();
+
+    public UserInfo() {
+        this.norm = new Nutrients();
     }
+
+    public UserInfo(String name) {
+        this.norm = new Nutrients();
+        this.name = name;
+    }
+
     public UserInfo(int uinfoID, String name, int age, boolean male, double h, double w, int activity, double g, Nutrients norm) {
         this.uinfoID = uinfoID;
         this.name = name;
@@ -98,4 +106,5 @@ public class UserInfo {
     public void setNorm(Nutrients norm) {
         this.norm = norm;
     }
+
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.courseproject.ClientApp;
+import org.example.courseproject.GsonUtils;
 import org.example.courseproject.POJO.User;
 
 import java.io.BufferedReader;
@@ -58,8 +59,8 @@ public class LoginController {
     }
 
     private User parseUser(String serverResponse) {
-        // Преобразование строки в объект User
-        User user = new Gson().fromJson(serverResponse, User.class);
+        Gson gson = GsonUtils.getGson();
+        User user = gson.fromJson(serverResponse, User.class);
         System.out.println(serverResponse);
         return user;
     }

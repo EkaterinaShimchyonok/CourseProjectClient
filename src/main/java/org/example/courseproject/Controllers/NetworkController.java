@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 // SINGLETON
 public class NetworkController {
     private static NetworkController instance;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    private boolean running = true;
 
     private NetworkController() { }
 
@@ -40,18 +42,23 @@ public class NetworkController {
     }
 
     public void closeConnection() {
+        running = false;
         try {
             if (in != null) {
+                System.out.println("Закрытие потока ввода");
                 in.close();
             }
             if (out != null) {
+                System.out.println("Закрытие потока вывода");
                 out.close();
             }
             if (socket != null) {
+                System.out.println("Закрытие сокета");
                 socket.close();
             }
         } catch (IOException e) {
             System.err.println("Не удалось закрыть соединение: " + e.getMessage());
         }
     }
+
 }

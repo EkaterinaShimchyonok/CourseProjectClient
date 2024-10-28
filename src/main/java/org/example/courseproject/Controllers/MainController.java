@@ -116,8 +116,16 @@ public class MainController {
     @FXML
     private void handleProducts() {
         contentLabel.setText("Управление продуктами");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/products.fxml"));
+            Node productsContent = loader.load();
+            ProductsController productsController = loader.getController();
+            mainContent.getChildren().setAll(productsContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     private void handleLogout() {

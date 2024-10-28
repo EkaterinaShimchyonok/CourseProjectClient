@@ -6,9 +6,12 @@ public class User {
     String password;
     boolean admin;
     UserInfo info;
+    String userName;
+
 
 
     public User() {
+        info = new UserInfo();
     }
 
     public User(int userID, String email, String password, boolean admin, UserInfo info) {
@@ -53,5 +56,13 @@ public class User {
 
     public void setInfo(UserInfo info) {
         this.info = info;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

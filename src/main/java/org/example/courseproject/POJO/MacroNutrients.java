@@ -1,26 +1,26 @@
 package org.example.courseproject.POJO;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class MacroNutrients {
-    int macronID;
-    double calories;
-    double proteins;
-    double fats;
-    double carbs;
+    private int macronID;
+    private final DoubleProperty calories = new SimpleDoubleProperty();
+    private final DoubleProperty proteins = new SimpleDoubleProperty();
+    private final DoubleProperty fats = new SimpleDoubleProperty();
+    private final DoubleProperty carbs = new SimpleDoubleProperty();
 
     public MacroNutrients() {
-        this.macronID = 0;
-        this.calories = 0;
-        this.proteins = 0;
-        this.fats = 0;
-        this.carbs = 0;
     }
+
     public MacroNutrients(int id, double calories, double proteins, double fats, double carbs) {
         this.macronID = id;
-        this.calories = calories;
-        this.proteins = proteins;
-        this.fats = fats;
-        this.carbs = carbs;
+        this.calories.set(calories);
+        this.proteins.set(proteins);
+        this.fats.set(fats);
+        this.carbs.set(carbs);
     }
+
     public int getMacronID() {
         return macronID;
     }
@@ -30,34 +30,50 @@ public class MacroNutrients {
     }
 
     public double getCalories() {
-        return calories;
+        return calories.get();
     }
 
     public void setCalories(double calories) {
-        this.calories = calories;
+        this.calories.set(calories);
+    }
+
+    public DoubleProperty caloriesProperty() {
+        return calories;
     }
 
     public double getProteins() {
-        return proteins;
+        return proteins.get();
     }
 
     public void setProteins(double proteins) {
-        this.proteins = proteins;
+        this.proteins.set(proteins);
+    }
+
+    public DoubleProperty proteinsProperty() {
+        return proteins;
     }
 
     public double getFats() {
-        return fats;
+        return fats.get();
     }
 
     public void setFats(double fats) {
-        this.fats = fats;
+        this.fats.set(fats);
+    }
+
+    public DoubleProperty fatsProperty() {
+        return fats;
     }
 
     public double getCarbs() {
-        return carbs;
+        return carbs.get();
     }
 
     public void setCarbs(double carbs) {
-        this.carbs = carbs;
+        this.carbs.set(carbs);
+    }
+
+    public DoubleProperty carbsProperty() {
+        return carbs;
     }
 }

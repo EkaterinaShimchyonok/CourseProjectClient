@@ -9,13 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.courseproject.POJO.User;
-import org.example.courseproject.POJO.UserInfo;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
 
 public class UsersController {
 
@@ -49,17 +46,15 @@ public class UsersController {
         networkController.connectToServer();
         out = networkController.getOut();
         in = networkController.getIn();
+        usersList = FXCollections.observableArrayList();
 
-        new Thread(() -> {
-            usersList = FXCollections.observableArrayList();
-            // Инициализация столбцов таблицы
-            emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-            isAdminColumn.setCellValueFactory(new PropertyValueFactory<>("admin"));
-            nameColumn.setCellValueFactory(new PropertyValueFactory<>("info.name"));
+        // Инициализация столбцов таблицы
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        isAdminColumn.setCellValueFactory(new PropertyValueFactory<>("admin"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
-            usersTable.setItems(usersList);
-            handleFetchAllUsers();
-        }).start();
+        usersTable.setItems(usersList);
+        handleFetchAllUsers();
     }
 
     @FXML
@@ -94,23 +89,24 @@ public class UsersController {
 
     @FXML
     private void handleFetchAllUsers() {
-        try {
+        new Thread(() -> {
             out.println("userfetchall");
             String response;
             usersList.clear();
-            while ((response = in.readLine()) != null) {
-                String[] parts = response.split(";");
-                System.out.println(parts[2]);
-                User user = new User();
-                user.setEmail(parts[0]);
-                user.setAdmin(Boolean.parseBoolean(parts[1]));
-                UserInfo userInfo = new UserInfo();
-                userInfo.setName(parts[2]);
-                user.setInfo(userInfo);
-                usersList.add(user);
+            while (true) {
+                try {
+                    response = in.readLine();
+                    System.out.println(response);
+                    String[] parts = response.split(";");
+                    User user = new User();
+                    user.setEmail(parts[0]);
+                    user.setAdmin(Boolean.parseBoolean(parts[1]));
+                    user.setUserName(parts[2]);
+                    usersList.add(user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 }

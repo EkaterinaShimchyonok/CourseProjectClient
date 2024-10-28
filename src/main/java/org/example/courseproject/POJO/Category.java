@@ -5,7 +5,10 @@ public class Category {
     String name;
     String image;
 
-    Category(int categoryID, String name, String image) {
+    public Category() {
+    }
+
+    public Category(int categoryID, String name, String image) {
         this.categoryID = categoryID;
         this.name = name;
         this.image = image;

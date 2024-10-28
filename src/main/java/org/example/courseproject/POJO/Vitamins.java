@@ -1,32 +1,28 @@
 package org.example.courseproject.POJO;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class Vitamins {
-    int vitaminsID;
-    double a;
-    double d;
-    double e;
-    double k;
-    double c;
-    double b12;
+    private int vitaminsID;
+    private final DoubleProperty a = new SimpleDoubleProperty();
+    private final DoubleProperty d = new SimpleDoubleProperty();
+    private final DoubleProperty e = new SimpleDoubleProperty();
+    private final DoubleProperty k = new SimpleDoubleProperty();
+    private final DoubleProperty c = new SimpleDoubleProperty();
+    private final DoubleProperty b12 = new SimpleDoubleProperty();
 
     public Vitamins() {
-        this.vitaminsID = 0;
-        this.a = 0;
-        this.d = 0;
-        this.e = 0;
-        this.k = 0;
-        this.c = 0;
-        this.b12 = 0;
     }
 
     public Vitamins(int vitaminsID, double a, double d, double e, double c, double k, double b12) {
         this.vitaminsID = vitaminsID;
-        this.a = a;
-        this.d = d;
-        this.e = e;
-        this.k = k;
-        this.c = c;
-        this.b12 = b12;
+        this.a.set(a);
+        this.d.set(d);
+        this.e.set(e);
+        this.k.set(k);
+        this.c.set(c);
+        this.b12.set(b12);
     }
 
     public int getVitaminsID() {
@@ -38,50 +34,74 @@ public class Vitamins {
     }
 
     public double getA() {
-        return a;
+        return a.get();
     }
 
     public void setA(double a) {
-        this.a = a;
+        this.a.set(a);
+    }
+
+    public DoubleProperty aProperty() {
+        return a;
     }
 
     public double getD() {
-        return d;
+        return d.get();
     }
 
     public void setD(double d) {
-        this.d = d;
+        this.d.set(d);
+    }
+
+    public DoubleProperty dProperty() {
+        return d;
     }
 
     public double getE() {
-        return e;
+        return e.get();
     }
 
     public void setE(double e) {
-        this.e = e;
+        this.e.set(e);
+    }
+
+    public DoubleProperty eProperty() {
+        return e;
     }
 
     public double getK() {
-        return k;
+        return k.get();
     }
 
     public void setK(double k) {
-        this.k = k;
+        this.k.set(k);
+    }
+
+    public DoubleProperty kProperty() {
+        return k;
     }
 
     public double getC() {
-        return c;
+        return c.get();
     }
 
     public void setC(double c) {
-        this.c = c;
+        this.c.set(c);
+    }
+
+    public DoubleProperty cProperty() {
+        return c;
     }
 
     public double getB12() {
-        return b12;
+        return b12.get();
     }
 
     public void setB12(double b12) {
-        this.b12 = b12;
+        this.b12.set(b12);
+    }
+
+    public DoubleProperty b12Property() {
+        return b12;
     }
 }
