@@ -87,6 +87,11 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleMenu() {
+        contentLabel.setText("Меню");
+        // Подобная логика для отображения соответствующего содержимого
+    }
 
     @FXML
     private void handlePlan() {
@@ -126,6 +131,11 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleCategories() {
+        contentLabel.setText("Продуктовые категории");
+        // Подобная логика для отображения соответствующего содержимого
+    }
 
     @FXML
     private void handleLogout() {

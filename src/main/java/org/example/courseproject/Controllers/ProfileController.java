@@ -67,7 +67,7 @@ public class ProfileController {
         }
     }
 
-    public void calculateDailyIntake() {
+    private void calculateDailyIntake() {
         double height = user.getInfo().getHeight();
         double weight = user.getInfo().getWeight();
         int age = user.getInfo().getAge();
