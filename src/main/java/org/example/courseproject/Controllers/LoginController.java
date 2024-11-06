@@ -1,6 +1,8 @@
 package org.example.courseproject.Controllers;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +13,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.courseproject.ClientApp;
-import org.example.courseproject.GsonUtils;
 import org.example.courseproject.POJO.User;
 
 import java.io.BufferedReader;
@@ -59,11 +60,18 @@ public class LoginController {
     }
 
     private User parseUser(String serverResponse) {
-        Gson gson = GsonUtils.getGson();
-        User user = gson.fromJson(serverResponse, User.class);
-        System.out.println(serverResponse);
-        return user;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.registerModule(new Jdk8Module());
+            User user = mapper.readValue(serverResponse, User.class);
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     private void showMainPage(User user) {
         try {

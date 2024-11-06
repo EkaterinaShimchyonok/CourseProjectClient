@@ -35,7 +35,7 @@ public class ProfileController {
         maleComboBox.setValue(user.getInfo().isMale() ? "Мужской" : "Женский");
         heightField.setText(String.valueOf(user.getInfo().getHeight()));
         weightField.setText(String.valueOf(user.getInfo().getWeight()));
-        activityLevelComboBox.setValue(getActivityLevelString(user.getInfo().getActivity_level()));
+        activityLevelComboBox.setValue(getActivityLevelString(user.getInfo().getActivityLevel()));
         goalField.setText(String.valueOf(user.getInfo().getGoal()));
     }
 
@@ -46,7 +46,7 @@ public class ProfileController {
         user.getInfo().setMale(maleComboBox.getValue().equals("Мужской"));
         user.getInfo().setHeight(Double.parseDouble(heightField.getText()));
         user.getInfo().setWeight(Double.parseDouble(weightField.getText()));
-        user.getInfo().setActivity_level(getActivityLevelInt(activityLevelComboBox.getValue()));
+        user.getInfo().setActivityLevel(getActivityLevelInt(activityLevelComboBox.getValue()));
         user.getInfo().setGoal(Double.parseDouble(goalField.getText()));
         calculateDailyIntake();
     }
@@ -67,12 +67,12 @@ public class ProfileController {
         }
     }
 
-    private void calculateDailyIntake() {
+    public void calculateDailyIntake() {
         double height = user.getInfo().getHeight();
         double weight = user.getInfo().getWeight();
         int age = user.getInfo().getAge();
         boolean isMale = user.getInfo().isMale();
-        int activityLevel = user.getInfo().getActivity_level();
+        int activityLevel = user.getInfo().getActivityLevel();
 
         // Алгоритм Маффина для расчета КБЖУ
         double bmr;

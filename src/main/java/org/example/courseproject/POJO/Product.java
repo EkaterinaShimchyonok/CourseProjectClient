@@ -12,11 +12,10 @@ public class Product {
         nutrients = new Nutrients();
         category = new Category();
     }
-    public Product(int id, String name, boolean isCoocked, String image, String categoryName, Nutrients nutrients) {
-        this.productID = id;
+    public Product(String name, boolean isCoocked, Category category, Nutrients nutrients) {
         this.name = name;
         this.isCooked = isCoocked;
-        this.categoryName = categoryName;
+        this.category = category;
         this.nutrients = nutrients;
     }
 

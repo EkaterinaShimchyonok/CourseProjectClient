@@ -15,8 +15,7 @@ public class Minerals {
     public Minerals() {
     }
 
-    public Minerals(int id, double ca, double fe, double mg, double zn, double cu, double se) {
-        this.mineralsID = id;
+    public Minerals(double ca, double fe, double mg, double zn, double cu, double se) {
         this.ca.set(ca);
         this.fe.set(fe);
         this.mg.set(mg);

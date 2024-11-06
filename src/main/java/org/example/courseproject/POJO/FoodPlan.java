@@ -6,6 +6,7 @@ import java.util.Date;
 public class FoodPlan {
     int planID;
     int userID;
+    Nutrients norm;
     ArrayList<Product> products;
     double[] weights;
     Date date;
@@ -35,6 +36,10 @@ public class FoodPlan {
     public void setUserID(int userID) {
         this.userID = userID;
     }
+
+    public Nutrients getNorm() { return norm; }
+
+    public void setNorm(Nutrients norm) { this.norm = norm; }
 
     public Date getDate() {
         return date;

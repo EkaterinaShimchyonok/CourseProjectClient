@@ -3,6 +3,8 @@ package org.example.courseproject.POJO;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
+
+
 public class Vitamins {
     private int vitaminsID;
     private final DoubleProperty a = new SimpleDoubleProperty();
@@ -15,8 +17,7 @@ public class Vitamins {
     public Vitamins() {
     }
 
-    public Vitamins(int vitaminsID, double a, double d, double e, double c, double k, double b12) {
-        this.vitaminsID = vitaminsID;
+    public Vitamins(double a, double d, double e, double c, double k, double b12) {
         this.a.set(a);
         this.d.set(d);
         this.e.set(e);

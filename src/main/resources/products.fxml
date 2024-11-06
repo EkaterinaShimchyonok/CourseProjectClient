@@ -12,7 +12,7 @@
     <Text text="Продукты" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: black;" GridPane.halignment="CENTER"/>
 
     <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
-        <TextField fx:id="searchField" promptText="Поиск по названию" style="-fx-pref-width: 300px;"/>
+        <TextField fx:id="searchField" promptText="Поиск по названию продукта" style="-fx-pref-width: 300px;"/>
         <Button text="Найти" onAction="#handleSearchProduct" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
     </HBox>
 
@@ -45,7 +45,6 @@
 
     <HBox spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
         <Button text="Добавить продукт" onAction="#handleAddProduct" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
-        <Button text="Изменить продукт" onAction="#handleEditProduct" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
         <Button text="Удалить продукт" onAction="#handleDeleteProduct" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
     </HBox>
 </GridPane>

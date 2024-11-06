@@ -8,11 +8,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="CENTER" style="-fx-background-color: rgba(144, 238, 144, 0.5); -fx-padding: 20;" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.courseproject.Controllers.UsersController">
-    <Text text="Пользователи" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: black;" GridPane.halignment="CENTER"/>
+<GridPane alignment="CENTER" style="-fx-background-color: rgba(144, 238, 144, 0.5); -fx-padding: 20;"
+          hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.example.courseproject.Controllers.UsersController">
+
+    <Text text="Пользователи" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"
+          style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: black;" GridPane.halignment="CENTER"/>
 
     <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
-        <TextField fx:id="searchField" promptText="Поиск по email,имени или правам администратора" style="-fx-pref-width: 300px;"/>
+        <TextField fx:id="searchField" promptText="Поиск по адресу электронной почты" style="-fx-pref-width: 300px;"/>
         <Button text="Найти" onAction="#handleSearchUser" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
     </HBox>
 
@@ -27,8 +31,9 @@
     </VBox>
 
     <HBox spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
-        <Button text="Добавить пользователя" onAction="#handleAddUser" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
-        <Button text="Изменить пользователя" onAction="#handleEditUser" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
-        <Button text="Удалить пользователя" onAction="#handleDeleteUser" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
+        <Button text="Добавить пользователя" onAction="#handleAddUser"
+                style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
+        <Button text="Удалить пользователя" onAction="#handleDeleteUser"
+                style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
     </HBox>
 </GridPane>
