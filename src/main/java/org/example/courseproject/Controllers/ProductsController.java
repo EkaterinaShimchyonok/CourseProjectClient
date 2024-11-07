@@ -10,9 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -174,11 +171,8 @@ public class ProductsController {
             mapper.registerModule(new Jdk8Module());
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-            // Преобразуем продукт в JSON-строку
             String productJson = mapper.writeValueAsString(product);
             System.out.println(productJson);
-
-            // Отправляем обновленный продукт на сервер
             out.println("productupdate;" + productJson);
 
             // Ожидаем ответ от сервера
@@ -206,7 +200,7 @@ public class ProductsController {
 
     private void showCategorySelectionDialog() {
         categories.clear();
-        categories.add( "Все");
+        categories.add("Все");
         out.println("categoryfetchnames");
 
         new Thread(() -> {
@@ -402,9 +396,6 @@ public class ProductsController {
                 try {
                     String name = nameField.getText();
                     String cat_name = categoryComboBox.getSelectionModel().getSelectedItem();
-                    if (cat_name.equals("Все") || cat_name.isEmpty() || name.isEmpty()) {
-                        throw new IllegalArgumentException("Категория 'Все', пустое имя категории или название продукта недопустимы.");
-                    }
                     double calories = caloriesField.getText().isEmpty() ? 0.0 : parseDouble(caloriesField.getText(), "Калории");
                     double proteins = proteinsField.getText().isEmpty() ? 0.0 : parseDouble(proteinsField.getText(), "Белки");
                     double fats = fatsField.getText().isEmpty() ? 0.0 : parseDouble(fatsField.getText(), "Жиры");
@@ -486,11 +477,9 @@ public class ProductsController {
                             alert.setContentText(response);
                             alert.showAndWait();
 
-                            // Если продукт был успешно добавлен, обновляем таблицу
-                            if (!response.toLowerCase().contains("error")) {
-                                productsList.add(newProduct);
-                                handleFetchProductsByCategory(newProduct.getCategory().getName());
-                            }
+                            productsList.add(newProduct);
+                            handleFetchProductsByCategory(newProduct.getCategory().getName());
+
                         });
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -501,7 +490,6 @@ public class ProductsController {
             }
         }
     }
-
 
 
     @FXML
@@ -522,12 +510,9 @@ public class ProductsController {
                         alert.setHeaderText(null);
                         alert.setContentText(response);
                         alert.showAndWait();
-
-                        if ("success".equalsIgnoreCase(response)) {
-                            productsList.remove(selectedProduct);
-                            // Обновляем таблицу, чтобы отобразить изменения
-                            handleFetchProductsByCategory(cat);
-                        }
+                        productsList.remove(selectedProduct);
+                        // Обновляем таблицу, чтобы отобразить изменения
+                        handleFetchProductsByCategory(cat);
                     });
                 } catch (Exception e) {
                     e.printStackTrace();

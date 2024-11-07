@@ -18,7 +18,7 @@ public class MainController {
     @FXML
     private VBox mainContent;
 
-    private User user;
+    public User user;
 
     public void setUser(User user) {
         this.user = user;
@@ -66,7 +66,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile.fxml"));
             Node profileContent = loader.load();
             ProfileController profileController = loader.getController();
-            profileController.setUser(user);
+            profileController.init(this);
             mainContent.getChildren().setAll(profileContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,7 +134,14 @@ public class MainController {
     @FXML
     private void handleCategories() {
         contentLabel.setText("Продуктовые категории");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/categories.fxml"));
+            Node categoriesContent = loader.load();
+            CategoriesController catsController = loader.getController();
+            mainContent.getChildren().setAll(categoriesContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

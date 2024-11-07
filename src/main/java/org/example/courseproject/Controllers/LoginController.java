@@ -28,15 +28,12 @@ public class LoginController {
     @FXML
     private PasswordField passwordInput;
 
-    private PrintWriter out;
-    private BufferedReader in;
+    NetworkController networkController = NetworkController.getInstance();
 
     @FXML
     public void initialize() {
-        NetworkController networkController = NetworkController.getInstance();
         networkController.connectToServer();
-        out = networkController.getOut();
-        in = networkController.getIn();
+        BufferedReader in = networkController.getIn();
 
         new Thread(() -> {
             try {
@@ -103,6 +100,7 @@ public class LoginController {
         String password = passwordInput.getText();
 
 
+        PrintWriter out = networkController.getOut();
         out.println("login;" + email + ";" + RegisterController.hashPassword(password));
 
         // Очистка формы после нажатия на кнопку регистрации
