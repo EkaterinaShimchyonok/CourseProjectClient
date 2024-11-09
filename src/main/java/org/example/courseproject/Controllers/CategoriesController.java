@@ -81,7 +81,7 @@ public class CategoriesController {
 
             String categoryJson = mapper.writeValueAsString(category);
             System.out.println(categoryJson);
-            out.println("categoryupdate;" + categoryJson);
+            out.println("category;update;" + categoryJson);
 
             // Ожидаем ответ от сервера
             new Thread(() -> {
@@ -109,7 +109,7 @@ public class CategoriesController {
     @FXML
     private void handleFetchCategories() {
         try {
-            out.println("categoryfetchall");
+            out.println("category;fetchall;.");
             String response;
 
             categoriesList.clear();
@@ -196,7 +196,7 @@ public class CategoriesController {
                 String categoryJson = mapper.writeValueAsString(newCategory);
                 System.out.println(categoryJson);
 
-                out.println("categoryadd;" + categoryJson);
+                out.println("category;add;" + categoryJson);
 
                 new Thread(() -> {
                     try {
@@ -226,7 +226,7 @@ public class CategoriesController {
         if (selectedCategory != null) {
             int categoryId = selectedCategory.getCategoryID();
             categoriesList.remove(selectedCategory);
-            out.println("categorydelete;" + categoryId);
+            out.println("category;delete;" + categoryId);
 
             new Thread(() -> {
                 try {

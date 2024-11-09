@@ -173,7 +173,7 @@ public class ProductsController {
 
             String productJson = mapper.writeValueAsString(product);
             System.out.println(productJson);
-            out.println("productupdate;" + productJson);
+            out.println("product;update;" + productJson);
 
             // Ожидаем ответ от сервера
             new Thread(() -> {
@@ -201,7 +201,7 @@ public class ProductsController {
     private void showCategorySelectionDialog() {
         categories.clear();
         categories.add("Все");
-        out.println("categoryfetchnames");
+        out.println("category;fetchnames;.");
 
         new Thread(() -> {
             try {
@@ -252,7 +252,7 @@ public class ProductsController {
     @FXML
     private void handleFetchProductsByCategory(String category) {
         try {
-            out.println("productfetchcat;" + category);
+            out.println("product;fetchcat;" + category);
             String response;
             productsList.clear();
             while ((response = in.readLine()) != null && !response.equals("end")) {
@@ -464,7 +464,7 @@ public class ProductsController {
                 System.out.println(productJson);
 
                 // Отправляем новый продукт на сервер
-                out.println("productadd;" + productJson);
+                out.println("product;add;" + productJson);
 
                 // Ожидаем ответ от сервера
                 new Thread(() -> {
@@ -499,7 +499,7 @@ public class ProductsController {
         if (selectedProduct != null) {
             int productId = selectedProduct.getProductID();
             productsList.remove(selectedProduct);
-            out.println("productdelete;" + productId);
+            out.println("product;delete;" + productId);
 
             new Thread(() -> {
                 try {

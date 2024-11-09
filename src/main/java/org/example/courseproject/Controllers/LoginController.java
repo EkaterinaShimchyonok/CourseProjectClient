@@ -1,5 +1,6 @@
 package org.example.courseproject.Controllers;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -39,15 +40,13 @@ public class LoginController {
             try {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
-                    if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз"))
-                    {
+                    if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз")) {
                         final String response = serverResponse;
                         Platform.runLater(() -> responseLabel.setText(response));
-                    }
-                    else
-                    {
+                    } else {
                         final User user = parseUser(serverResponse);
                         Platform.runLater(() -> showMainPage(user));
+                        break;
                     }
                 }
             } catch (IOException e) {
@@ -59,10 +58,10 @@ public class LoginController {
     private User parseUser(String serverResponse) {
         try {
             ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             mapper.registerModule(new JavaTimeModule());
             mapper.registerModule(new Jdk8Module());
-            User user = mapper.readValue(serverResponse, User.class);
-            return user;
+            return mapper.readValue(serverResponse, User.class);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -77,8 +76,9 @@ public class LoginController {
             MainController mainController = loader.getController();
             mainController.setUser(user); // Передаем объект User контроллеру новой страницы
             String title = "Здравствуйте ";
-            if(user.getInfo().getName()!=null){
-                title += user.getInfo().getName();}
+            if (user.getInfo().getName() != null) {
+                title += user.getInfo().getName();
+            }
             primaryStage.setTitle(title);
             primaryStage.setScene(new Scene(root, 900, 600));
             primaryStage.show();
@@ -101,7 +101,7 @@ public class LoginController {
 
 
         PrintWriter out = networkController.getOut();
-        out.println("login;" + email + ";" + RegisterController.hashPassword(password));
+        out.println("user;login;" + email + "," + RegisterController.hashPassword(password));
 
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();

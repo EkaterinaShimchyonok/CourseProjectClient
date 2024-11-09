@@ -75,7 +75,7 @@ public class ProfileController {
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
             String userJson = mapper.writeValueAsString(main.user);
             System.out.println(userJson);
-            out.println("userupdate;" + userJson);
+            out.println("user;update;" + userJson);
             new Thread(() -> {
                 try {
                     String response = in.readLine();

@@ -71,7 +71,7 @@ public class RegisterController {
             return;
         }
 
-        out.println("register;" + email + ";" + hashPassword(password));
+        out.println("user;register;" + email + "," + hashPassword(password));
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();
         passwordInput.clear();

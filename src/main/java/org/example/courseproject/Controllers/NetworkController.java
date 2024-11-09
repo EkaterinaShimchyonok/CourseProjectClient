@@ -12,7 +12,6 @@ public class NetworkController {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
-    private boolean running = true;
 
     private NetworkController() { }
 
@@ -23,11 +22,15 @@ public class NetworkController {
         return instance;
     }
 
-    public void connectToServer() {
+    public synchronized void connectToServer() {
+        if (socket != null && socket.isConnected() && !socket.isClosed())
+            return;
+
         try {
             socket = new Socket("localhost", 5000);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Установлено соединение с сервером localhost:5000");
         } catch (IOException e) {
             System.err.println("Не удалось подключиться к серверу: " + e.getMessage());
         }
@@ -42,7 +45,6 @@ public class NetworkController {
     }
 
     public void closeConnection() {
-        running = false;
         try {
             if (in != null) {
                 System.out.println("Закрытие потока ввода");
@@ -60,5 +62,4 @@ public class NetworkController {
             System.err.println("Не удалось закрыть соединение: " + e.getMessage());
         }
     }
-
 }

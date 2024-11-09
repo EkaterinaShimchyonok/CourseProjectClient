@@ -87,7 +87,7 @@ public class UsersController {
 
             String userJson = mapper.writeValueAsString(user);
             System.out.println(userJson);
-            out.println("userupdateadmin;" + userJson);
+            out.println("user;updateadmin;" + userJson);
 
             // Ожидаем ответ от сервера
             new Thread(() -> {
@@ -114,7 +114,7 @@ public class UsersController {
     @FXML
     private void handleFetchAllUsers() {
         try {
-            out.println("userfetchall");
+            out.println("user;fetchall;.");
             String response;
 
             usersList.clear();
@@ -165,7 +165,7 @@ public class UsersController {
     private void handleDeleteUser() {
         User selectedUser = usersTable.getSelectionModel().getSelectedItem();
         if (selectedUser != null && !currentEmail.equals(selectedUser.getEmail())) {
-            out.println("userdelete;" +  selectedUser.getUserID());
+            out.println("user;delete;" +  selectedUser.getUserID());
             usersList.remove(selectedUser);
             new Thread(() -> {
                 try {

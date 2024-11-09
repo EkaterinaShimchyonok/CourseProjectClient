@@ -22,8 +22,8 @@ public class StartController {
 
     @FXML
     private void handleExit() {
-            Platform.exit();
-            System.exit(0);
+        Platform.exit();
+        System.exit(0);
     }
 
 }
