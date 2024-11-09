@@ -13,6 +13,7 @@ public class ClientApp extends Application {
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
+
     public void register(Stage primaryStage)
     {
         try {

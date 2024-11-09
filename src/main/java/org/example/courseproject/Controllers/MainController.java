@@ -112,6 +112,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/users.fxml"));
             Node usersContent = loader.load();
             UsersController usersController = loader.getController();
+            usersController.setCurrentEmail(user.getEmail());
             mainContent.getChildren().setAll(usersContent);
         } catch (IOException e) {
             e.printStackTrace();

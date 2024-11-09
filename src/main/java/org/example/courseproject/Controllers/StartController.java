@@ -15,7 +15,7 @@ public class StartController {
 
     @FXML
     private void handleRegister() {
-        Stage stage = (Stage) ClientApp.getPrimaryStage();
+        Stage stage = ClientApp.getPrimaryStage();
         ClientApp app = new ClientApp();
         app.register(stage);
     }

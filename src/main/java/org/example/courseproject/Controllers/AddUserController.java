@@ -2,10 +2,10 @@ package org.example.courseproject.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.courseproject.ClientApp;
 
 import java.io.BufferedReader;
@@ -17,7 +17,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.regex.Pattern;
 
-public class RegisterController {
+public class AddUserController {
+
     @FXML
     private Label responseLabel;
     @FXML
@@ -47,14 +48,6 @@ public class RegisterController {
             }
         }).start();
     }
-
-    @FXML
-    private void handleBack() {
-        Stage stage = ClientApp.getPrimaryStage();
-        ClientApp app = new ClientApp();
-        app.showStartView(stage);
-    }
-
 
     @FXML
     private void handleRegister() {

@@ -18,12 +18,14 @@
     <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
         <TextField fx:id="searchField" promptText="Поиск по адресу электронной почты" style="-fx-pref-width: 300px;"/>
         <Button text="Найти" onAction="#handleSearchUser" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
+        <Button text="Обновить таблицу" onAction="#handleFetchAllUsers" style="-fx-background-color: #27AE60; -fx-text-fill: white;"/>
     </HBox>
 
     <VBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2">
         <TableView fx:id="usersTable" style="-fx-pref-width: 600px;">
             <columns>
-                <TableColumn fx:id="emailColumn" text="Email" style="-fx-pref-width: 300px;"/>
+                <TableColumn fx:id="idColumn" text="ID" style="-fx-pref-width: 50px;"/>
+                <TableColumn fx:id="emailColumn" text="Email" style="-fx-pref-width: 200px;"/>
                 <TableColumn fx:id="nameColumn" text="Имя" style="-fx-pref-width: 200px;"/>
                 <TableColumn fx:id="isAdminColumn" text="Администратор" style="-fx-pref-width: 100px;"/>
             </columns>
