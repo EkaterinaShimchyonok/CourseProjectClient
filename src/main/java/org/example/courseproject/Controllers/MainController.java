@@ -90,7 +90,14 @@ public class MainController {
     @FXML
     private void handleMenu() {
         contentLabel.setText("Меню");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            Node menuContent = loader.load();
+            MenuController menuController = loader.getController();
+            mainContent.getChildren().setAll(menuContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

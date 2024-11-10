@@ -265,7 +265,7 @@ public class ProductsController {
         }
     }
 
-    private Product parseProduct(String serverResponse) {
+    static public Product parseProduct(String serverResponse) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
@@ -511,8 +511,6 @@ public class ProductsController {
                         alert.setContentText(response);
                         alert.showAndWait();
                         productsList.remove(selectedProduct);
-                        // Обновляем таблицу, чтобы отобразить изменения
-                        handleFetchProductsByCategory(cat);
                     });
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -5,17 +5,23 @@ public class Category {
     String name;
     String image;
 
-    public Category() {
+
+    public Category()
+    {
+        image = "products.png";
     }
 
     public Category(String name) {
         this.name = name;
+        image = "products.png";
     }
 
     public Category(int categoryID, String name, String image) {
         this.categoryID = categoryID;
         this.name = name;
         this.image = image;
+        if (image.equals(" ") || image.isEmpty())
+            this.image = "products.png";
     }
 
     public int getCategoryID() {
