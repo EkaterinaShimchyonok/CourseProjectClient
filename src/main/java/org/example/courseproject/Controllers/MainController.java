@@ -94,6 +94,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
             Node menuContent = loader.load();
             MenuController menuController = loader.getController();
+            menuController.setUserID(user.getUserID());
             mainContent.getChildren().setAll(menuContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,7 +104,15 @@ public class MainController {
     @FXML
     private void handlePlan() {
         contentLabel.setText("План питания");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/plan.fxml"));
+            Node planContent = loader.load();
+            PlanController planController = loader.getController();
+            planController.setUser(user);
+            mainContent.getChildren().setAll(planContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

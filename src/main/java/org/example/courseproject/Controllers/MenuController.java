@@ -11,11 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import org.example.courseproject.POJO.FoodPlan;
 import org.example.courseproject.POJO.Product;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +35,11 @@ public class MenuController {
     @FXML
     private ScrollPane scrollPane;
     private final ArrayList<String> categories = new ArrayList<>();
+    private int userID;
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
     @FXML
     public void initialize() {
@@ -146,6 +154,7 @@ public class MenuController {
 
             Button addButton = new Button("Добавить в план");
             addButton.setStyle("-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 160px;");
+            addButton.setOnAction(event -> addToPlan(product));
 
             productBox.getChildren().addAll(productImage, productNameText, detailButton, addButton);
             currentRow.getChildren().add(productBox);
@@ -246,4 +255,15 @@ public class MenuController {
     }
 
 
+    void addToPlan(Product product)
+    {
+        PlanController controller = new PlanController();
+        controller.setInOut();
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        FoodPlan plan =  controller.fetchPlan(userID, formatter.format(today));
+        plan.getProducts().add(product);
+        plan.getWeights().add(100.0);
+        controller.updateDBPlan(plan);
+    }
 }
