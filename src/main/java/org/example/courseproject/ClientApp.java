@@ -19,7 +19,7 @@ public class ClientApp extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/registration.fxml"));
             primaryStage.setTitle("Регистрация");
-            primaryStage.setScene(new Scene(root, 300, 200));
+            primaryStage.setScene(new Scene(root, 500, 275));
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class ClientApp extends Application {
             LoginController.setPrimaryStage(primaryStage);
             Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             primaryStage.setTitle("Вход");
-            primaryStage.setScene(new Scene(root, 300, 200));
+            primaryStage.setScene(new Scene(root, 500, 275));
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class ClientApp extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/start.fxml"));
             primaryStage.setTitle("Главная");
-            primaryStage.setScene(new Scene(root, 400, 300));
+            primaryStage.setScene(new Scene(root, 500, 275)); // Увеличен размер окна
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
