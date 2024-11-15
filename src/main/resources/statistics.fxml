@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" style="-fx-background-color: rgba(144, 238, 144, 0.5); -fx-padding: 20;" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.courseproject.Controllers.StatisticsController">
+    <Text text="Моя статистика" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 24px; -fx-font-weight: bold;" GridPane.halignment="CENTER"/>
+
+    <VBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <ComboBox fx:id="nutrientComboBox" promptText="Выберите нутриент" onAction="#onNutrientSelected"/>
+        <AnchorPane>
+            <LineChart fx:id="nutrientChart" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+                <xAxis>
+                    <CategoryAxis label="Дата"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Значение"/>
+                </yAxis>
+            </LineChart>
+        </AnchorPane>
+    </VBox>
+</GridPane>

@@ -118,7 +118,15 @@ public class MainController {
     @FXML
     private void handleStats() {
         contentLabel.setText("Моя статистика");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statistics.fxml"));
+            Node statsContent = loader.load();
+            StatisticsController statsController = loader.getController();
+            statsController.setUser(user);
+            mainContent.getChildren().setAll(statsContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -69,12 +69,13 @@ public class PlanController {
     private PrintWriter out;
     private BufferedReader in;
 
-    void setInOut(){
+    void setInOut() {
         NetworkController networkController = NetworkController.getInstance();
         networkController.connectToServer();
         out = networkController.getOut();
         in = networkController.getIn();
     }
+
     @FXML
     void initialize() {
         this.setInOut();
@@ -82,6 +83,8 @@ public class PlanController {
 
     private void init() {
         plan = fetchPlan(plan.getUserID(), plan.getDate());
+        if (plan.getPlanID() == 0)
+            plan = insertPlan(plan.getUserID(), plan.getDate());
         loadPlan();
         calculatePlan();
     }
@@ -168,6 +171,20 @@ public class PlanController {
     public FoodPlan fetchPlan(int uid, String d) {
         try {
             out.println("plan;fetch;" + uid + ',' + d);
+            String response;
+            response = in.readLine();
+            System.out.println(response);
+            if (response != null)
+                return parsePlan(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new FoodPlan();
+    }
+
+    public FoodPlan insertPlan(int uid, String d) {
+        try {
+            out.println("plan;insert;" + uid);
             String response;
             response = in.readLine();
             System.out.println(response);
@@ -273,6 +290,7 @@ public class PlanController {
         loadPlan();
         calculatePlan();
     }
+
     @FXML
     void handleSaveXML() {
         // Показываем диалоговое окно для ввода имени файла
