@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="CENTER" style="-fx-background-color: rgba(144, 238, 144, 0.5); -fx-padding: 20;" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx/fxml/1" fx:controller="org.example.courseproject.Controllers.PlanController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="65"/>
+        <ColumnConstraints percentWidth="35"/>
+    </columnConstraints>
+
+    <Text text="План питания" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: black;" GridPane.halignment="CENTER"/>
+
+    <!-- Первая часть с контентом и кнопками -->
+    <VBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-background-color: #F0FFF0; -fx-padding: 20;">
+        <!-- Область для списка продуктов с прокруткой -->
+        <ScrollPane fx:id="productListScrollPane" fitToWidth="true" style="-fx-pref-height: 280px;">
+            <VBox fx:id="productListVBox" spacing="10" />
+        </ScrollPane>
+        <!-- Кнопки внизу первой части -->
+        <VBox spacing="10" alignment="BOTTOM_CENTER">
+            <Button text="Сохранить план" onAction="#handleUpdate" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 150px;"/>
+            <Button text="Сохранить в XML-файл" onAction="#handleSaveXML" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 150px;"/>
+            <Button text="Очистить план" onAction="#handleClearPlan" style="-fx-background-color: #FF6347; -fx-text-fill: white; -fx-pref-width: 150px;"/>
+        </VBox>
+    </VBox>
+
+    <!-- Вторая часть с информацией о пищевой ценности -->
+    <VBox spacing="3" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #F0FFF0; -fx-padding: 15;">
+        <Text text="Пищевая ценность" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: black;" />
+        <Text text=" " />
+        <Text text="Калории: " fx:id="totalCalories"/>
+        <Text text="Белки: " fx:id="totalProteins"/>
+        <Text text="Жиры: " fx:id="totalFats"/>
+        <Text text="Углеводы: " fx:id="totalCarbs"/>
+        <!-- Пустая строка для разделения -->
+        <Text text=" " />
+        <Text text="Витамин A: " fx:id="totalVitaminA"/>
+        <Text text="Витамин D: " fx:id="totalVitaminD"/>
+        <Text text="Витамин E: " fx:id="totalVitaminE"/>
+        <Text text="Витамин K: " fx:id="totalVitaminK"/>
+        <Text text="Витамин C: " fx:id="totalVitaminC"/>
+        <Text text="Витамин B12: " fx:id="totalVitaminB12"/>
+        <!-- Пустая строка для разделения -->
+        <Text text=" " />
+        <Text text="Кальций Ca: " fx:id="totalCalcium"/>
+        <Text text="Железо Fe: " fx:id="totalIron"/>
+        <Text text="Магний Mg: " fx:id="totalMagnesium"/>
+        <Text text="Цинк Zn: " fx:id="totalZinc"/>
+        <Text text="Медь Cu: " fx:id="totalCopper"/>
+        <Text text="Селен Se: " fx:id="totalSelenium"/>
+    </VBox>
+</GridPane>

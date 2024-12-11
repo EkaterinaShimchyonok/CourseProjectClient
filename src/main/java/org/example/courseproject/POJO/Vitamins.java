@@ -2,8 +2,13 @@ package org.example.courseproject.POJO;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+@XmlRootElement(name = "Vitamins")
 public class Vitamins {
+    @XmlTransient
     private int vitaminsID;
     private final DoubleProperty a = new SimpleDoubleProperty();
     private final DoubleProperty d = new SimpleDoubleProperty();
@@ -13,10 +18,15 @@ public class Vitamins {
     private final DoubleProperty b12 = new SimpleDoubleProperty();
 
     public Vitamins() {
+        a.set(0.0);
+        d.set(0.0);
+        e.set(0.0);
+        k.set(0.0);
+        c.set(0.0);
+        b12.set(0.0);
     }
 
-    public Vitamins(int vitaminsID, double a, double d, double e, double c, double k, double b12) {
-        this.vitaminsID = vitaminsID;
+    public Vitamins(double a, double d, double e, double c, double k, double b12) {
         this.a.set(a);
         this.d.set(d);
         this.e.set(e);
@@ -25,6 +35,7 @@ public class Vitamins {
         this.b12.set(b12);
     }
 
+    @XmlTransient
     public int getVitaminsID() {
         return vitaminsID;
     }
@@ -33,6 +44,7 @@ public class Vitamins {
         this.vitaminsID = vitaminsID;
     }
 
+    @XmlElement
     public double getA() {
         return a.get();
     }
@@ -45,6 +57,7 @@ public class Vitamins {
         return a;
     }
 
+    @XmlElement
     public double getD() {
         return d.get();
     }
@@ -57,6 +70,7 @@ public class Vitamins {
         return d;
     }
 
+    @XmlElement
     public double getE() {
         return e.get();
     }
@@ -69,6 +83,7 @@ public class Vitamins {
         return e;
     }
 
+    @XmlElement
     public double getK() {
         return k.get();
     }
@@ -81,6 +96,7 @@ public class Vitamins {
         return k;
     }
 
+    @XmlElement
     public double getC() {
         return c.get();
     }
@@ -93,6 +109,7 @@ public class Vitamins {
         return c;
     }
 
+    @XmlElement
     public double getB12() {
         return b12.get();
     }
@@ -103,5 +120,14 @@ public class Vitamins {
 
     public DoubleProperty b12Property() {
         return b12;
+    }
+
+    public void add(Vitamins other, double weight) {
+        this.a.set(this.getA() + other.getA() * weight);
+        this.d.set(this.getD() + other.getD() * weight);
+        this.e.set(this.getE() + other.getE() * weight);
+        this.k.set(this.getK() + other.getK() * weight);
+        this.c.set(this.getC() + other.getC() * weight);
+        this.b12.set(this.getB12() + other.getB12() * weight);
     }
 }

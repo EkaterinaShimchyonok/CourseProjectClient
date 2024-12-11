@@ -9,7 +9,7 @@ public class UserInfo {
     boolean male;
     double height;
     double weight;
-    int activity_level;
+    int activityLevel;
     double goal;
     Nutrients norm;
 
@@ -30,7 +30,7 @@ public class UserInfo {
         this.male = male;
         this.height = h;
         this.weight = w;
-        this.activity_level = activity;
+        this.activityLevel = activity;
         this.goal = g;
         this.norm = norm;
     }
@@ -83,12 +83,12 @@ public class UserInfo {
         this.weight = weight;
     }
 
-    public int getActivity_level() {
-        return activity_level;
+    public int getActivityLevel() {
+        return activityLevel;
     }
 
-    public void setActivity_level(int activity_level) {
-        this.activity_level = activity_level;
+    public void setActivityLevel(int activity_level) {
+        this.activityLevel = activity_level;
     }
 
     public double getGoal() {

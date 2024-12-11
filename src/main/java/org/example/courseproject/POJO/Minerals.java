@@ -2,8 +2,13 @@ package org.example.courseproject.POJO;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+@XmlRootElement(name = "Minerals")
 public class Minerals {
+    @XmlTransient
     private int mineralsID;
     private final DoubleProperty ca = new SimpleDoubleProperty();
     private final DoubleProperty fe = new SimpleDoubleProperty();
@@ -13,10 +18,15 @@ public class Minerals {
     private final DoubleProperty se = new SimpleDoubleProperty();
 
     public Minerals() {
+        ca.set(0.0);
+        fe.set(0.0);
+        mg.set(0.0);
+        zn.set(0.0);
+        cu.set(0.0);
+        se.set(0.0);
     }
 
-    public Minerals(int id, double ca, double fe, double mg, double zn, double cu, double se) {
-        this.mineralsID = id;
+    public Minerals(double ca, double fe, double mg, double zn, double cu, double se) {
         this.ca.set(ca);
         this.fe.set(fe);
         this.mg.set(mg);
@@ -25,6 +35,7 @@ public class Minerals {
         this.se.set(se);
     }
 
+    @XmlTransient
     public int getMineralsID() {
         return mineralsID;
     }
@@ -33,6 +44,7 @@ public class Minerals {
         this.mineralsID = mineralsID;
     }
 
+    @XmlElement
     public double getCa() {
         return ca.get();
     }
@@ -45,6 +57,7 @@ public class Minerals {
         return ca;
     }
 
+    @XmlElement
     public double getFe() {
         return fe.get();
     }
@@ -57,6 +70,7 @@ public class Minerals {
         return fe;
     }
 
+    @XmlElement
     public double getMg() {
         return mg.get();
     }
@@ -69,6 +83,7 @@ public class Minerals {
         return mg;
     }
 
+    @XmlElement
     public double getZn() {
         return zn.get();
     }
@@ -81,6 +96,7 @@ public class Minerals {
         return zn;
     }
 
+    @XmlElement
     public double getCu() {
         return cu.get();
     }
@@ -93,6 +109,7 @@ public class Minerals {
         return cu;
     }
 
+    @XmlElement
     public double getSe() {
         return se.get();
     }
@@ -103,5 +120,14 @@ public class Minerals {
 
     public DoubleProperty seProperty() {
         return se;
+    }
+
+    public void add(Minerals other, double weight) {
+        this.ca.set(this.getCa() + other.getCa() * weight);
+        this.fe.set(this.getFe() + other.getFe() * weight);
+        this.mg.set(this.getMg() + other.getMg() * weight);
+        this.zn.set(this.getZn() + other.getZn() * weight);
+        this.cu.set(this.getCu() + other.getCu() * weight);
+        this.se.set(this.getSe() + other.getSe() * weight);
     }
 }

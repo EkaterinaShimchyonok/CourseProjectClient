@@ -39,7 +39,7 @@ public class RegisterController {
             try {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
-                    final String response = serverResponse;
+                    String response = serverResponse;
                     Platform.runLater(() -> responseLabel.setText(response));
                 }
             } catch (IOException e) {
@@ -50,7 +50,7 @@ public class RegisterController {
 
     @FXML
     private void handleBack() {
-        Stage stage = (Stage) ClientApp.getPrimaryStage();
+        Stage stage = ClientApp.getPrimaryStage();
         ClientApp app = new ClientApp();
         app.showStartView(stage);
     }
@@ -67,11 +67,11 @@ public class RegisterController {
         }
 
         if (!isValidPassword(password)) {
-            responseLabel.setText("Пароль должен быть минимум 8 символов, содержать только латинские буквы, цифры и _");
+            responseLabel.setText("Пароль содержит более 8 символов (латинские буквы, цифры и _)");
             return;
         }
 
-        out.println("register;" + email + ";" + hashPassword(password));
+        out.println("user;register;" + email + "," + hashPassword(password));
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();
         passwordInput.clear();

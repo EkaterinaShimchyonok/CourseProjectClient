@@ -31,7 +31,7 @@ public class DailyIntakeController {
                 "D: " + user.getInfo().getNorm().getVitamins().getD() + " мкг\n" +
                 "E: " + user.getInfo().getNorm().getVitamins().getE() + " мг\n" +
                 "K: " + user.getInfo().getNorm().getVitamins().getK() + " мкг\n" +
-                "C: " + user.getInfo().getNorm().getVitamins().getC() + " мкг\n" +
+                "C: " + user.getInfo().getNorm().getVitamins().getC() + " мг\n" +
                 "B12: " + user.getInfo().getNorm().getVitamins().getB12() + " мкг";
     }
 

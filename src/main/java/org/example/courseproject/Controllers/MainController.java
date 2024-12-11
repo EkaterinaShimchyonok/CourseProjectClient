@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,10 +19,34 @@ public class MainController {
     @FXML
     private VBox mainContent;
 
-    private User user;
+    @FXML
+    private Button usersButton;
+    @FXML
+    private Button productsButton;
+    @FXML
+    private Button categoriesButton;
+
+    public User user;
 
     public void setUser(User user) {
         this.user = user;
+        // Проверка, является ли пользователь администратором, и скрытие кнопок при необходимости
+        if (!user.isAdmin()) {
+            hideAdminButtons();
+        }
+    }
+
+    @FXML
+    private void hideAdminButtons() {
+        if (usersButton != null) {
+            usersButton.setVisible(false);
+        }
+        if (productsButton != null) {
+            productsButton.setVisible(false);
+        }
+        if (categoriesButton != null) {
+            categoriesButton.setVisible(false);
+        }
     }
 
     @FXML
@@ -66,7 +91,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile.fxml"));
             Node profileContent = loader.load();
             ProfileController profileController = loader.getController();
-            profileController.setUser(user);
+            profileController.init(this);
             mainContent.getChildren().setAll(profileContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,17 +112,46 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleMenu() {
+        contentLabel.setText("Меню");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            Node menuContent = loader.load();
+            MenuController menuController = loader.getController();
+            menuController.setUserID(user.getUserID());
+            mainContent.getChildren().setAll(menuContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handlePlan() {
         contentLabel.setText("План питания");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/plan.fxml"));
+            Node planContent = loader.load();
+            PlanController planController = loader.getController();
+            planController.setUser(user);
+            mainContent.getChildren().setAll(planContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleStats() {
         contentLabel.setText("Моя статистика");
-        // Подобная логика для отображения соответствующего содержимого
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/statistics.fxml"));
+            Node statsContent = loader.load();
+            StatisticsController statsController = loader.getController();
+            statsController.setUser(user);
+            mainContent.getChildren().setAll(statsContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -107,6 +161,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/users.fxml"));
             Node usersContent = loader.load();
             UsersController usersController = loader.getController();
+            usersController.setCurrentEmail(user.getEmail());
             mainContent.getChildren().setAll(usersContent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,6 +181,18 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleCategories() {
+        contentLabel.setText("Продуктовые категории");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/categories.fxml"));
+            Node categoriesContent = loader.load();
+            CategoriesController catsController = loader.getController();
+            mainContent.getChildren().setAll(categoriesContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleLogout() {

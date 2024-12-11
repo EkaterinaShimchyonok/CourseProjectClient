@@ -1,6 +1,9 @@
 package org.example.courseproject.Controllers;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +14,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.courseproject.ClientApp;
-import org.example.courseproject.GsonUtils;
 import org.example.courseproject.POJO.User;
 
 import java.io.BufferedReader;
@@ -27,29 +29,24 @@ public class LoginController {
     @FXML
     private PasswordField passwordInput;
 
-    private PrintWriter out;
-    private BufferedReader in;
+    NetworkController networkController = NetworkController.getInstance();
 
     @FXML
     public void initialize() {
-        NetworkController networkController = NetworkController.getInstance();
         networkController.connectToServer();
-        out = networkController.getOut();
-        in = networkController.getIn();
+        BufferedReader in = networkController.getIn();
 
         new Thread(() -> {
             try {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
-                    if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз"))
-                    {
-                        final String response = serverResponse;
+                    if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз")) {
+                        String response = serverResponse;
                         Platform.runLater(() -> responseLabel.setText(response));
-                    }
-                    else
-                    {
-                        final User user = parseUser(serverResponse);
+                    } else {
+                        User user = parseUser(serverResponse);
                         Platform.runLater(() -> showMainPage(user));
+                        break;
                     }
                 }
             } catch (IOException e) {
@@ -59,11 +56,18 @@ public class LoginController {
     }
 
     private User parseUser(String serverResponse) {
-        Gson gson = GsonUtils.getGson();
-        User user = gson.fromJson(serverResponse, User.class);
-        System.out.println(serverResponse);
-        return user;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            mapper.registerModule(new JavaTimeModule());
+            mapper.registerModule(new Jdk8Module());
+            return mapper.readValue(serverResponse, User.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     private void showMainPage(User user) {
         try {
@@ -72,8 +76,9 @@ public class LoginController {
             MainController mainController = loader.getController();
             mainController.setUser(user); // Передаем объект User контроллеру новой страницы
             String title = "Здравствуйте ";
-            if(user.getInfo().getName()!=null){
-                title += user.getInfo().getName();}
+            if (user.getInfo().getName() != null) {
+                title += user.getInfo().getName();
+            }
             primaryStage.setTitle(title);
             primaryStage.setScene(new Scene(root, 900, 600));
             primaryStage.show();
@@ -95,7 +100,8 @@ public class LoginController {
         String password = passwordInput.getText();
 
 
-        out.println("login;" + email + ";" + RegisterController.hashPassword(password));
+        PrintWriter out = networkController.getOut();
+        out.println("user;login;" + email + "," + RegisterController.hashPassword(password));
 
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();
