@@ -41,10 +41,10 @@ public class LoginController {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
                     if (serverResponse.equals("Не удалось войти в систему. Попробуйте ещё раз")) {
-                        final String response = serverResponse;
+                        String response = serverResponse;
                         Platform.runLater(() -> responseLabel.setText(response));
                     } else {
-                        final User user = parseUser(serverResponse);
+                        User user = parseUser(serverResponse);
                         Platform.runLater(() -> showMainPage(user));
                         break;
                     }

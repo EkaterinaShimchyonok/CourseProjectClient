@@ -39,7 +39,7 @@ public class RegisterController {
             try {
                 String serverResponse;
                 while ((serverResponse = in.readLine()) != null) {
-                    final String response = serverResponse;
+                    String response = serverResponse;
                     Platform.runLater(() -> responseLabel.setText(response));
                 }
             } catch (IOException e) {
@@ -67,7 +67,7 @@ public class RegisterController {
         }
 
         if (!isValidPassword(password)) {
-            responseLabel.setText("Пароль должен быть минимум 8 символов, содержать только латинские буквы, цифры и _");
+            responseLabel.setText("Пароль содержит более 8 символов (латинские буквы, цифры и _)");
             return;
         }
 

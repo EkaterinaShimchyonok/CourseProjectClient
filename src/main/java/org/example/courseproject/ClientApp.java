@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import org.example.courseproject.Controllers.LoginController;
 
 public class ClientApp extends Application {
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     public static Stage getPrimaryStage() {
         return primaryStage;

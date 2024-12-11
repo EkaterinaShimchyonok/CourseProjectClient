@@ -10,7 +10,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.example.courseproject.POJO.FoodPlan;
 import org.example.courseproject.POJO.Nutrients;
@@ -24,6 +23,7 @@ import java.util.Map;
 
 public class StatisticsController {
     private int userID;
+    private Nutrients norm;
 
     @FXML
     private ComboBox<String> nutrientComboBox;
@@ -45,7 +45,7 @@ public class StatisticsController {
 
     void setUser(User user) {
         this.userID = user.getUserID();
-        Nutrients norm = user.getInfo().getNorm();
+        this.norm = user.getInfo().getNorm();
 
         nutrientNormMap.put("Калории", norm.getMacroNutrients().getCalories());
         nutrientNormMap.put("Белки", norm.getMacroNutrients().getProteins());
@@ -68,8 +68,18 @@ public class StatisticsController {
     @FXML
     public void initialize() {
         setInOut();
-        requestData();
+        prepareChartAxes();  // Инициализируем ось X с датами
         populateNutrientComboBox();
+        requestData();       // Запрашиваем данные после подготовки оси
+    }
+
+    private void prepareChartAxes() {
+        LocalDate now = LocalDate.now();
+        for (int i = 0; i < 14; i++) {
+            LocalDate date = now.minusDays(13 - i);
+            xAxis.getCategories().add(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        }
+        nutrientChart.getXAxis().setAnimated(false);
     }
 
     private void requestData() {
@@ -78,21 +88,17 @@ public class StatisticsController {
                 LocalDate now = LocalDate.now();
                 LocalDate[] dates = new LocalDate[14];
                 for (int i = 0; i < 14; i++) {
-                    dates[i] = now.minusDays(13 - i);  // Заполняем массив дат в нужном порядке
+                    dates[i] = now.minusDays(13 - i);
                 }
 
-                // Обновляем ось X графика в правильном порядке
-                Platform.runLater(() -> {
-                    xAxis.getCategories().clear();
-                    for (LocalDate date : dates) {
-                        xAxis.getCategories().add(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-                    }
-                });
-
-                // Запрашиваем данные и сохраняем их во временную карту
                 for (LocalDate date : dates) {
                     Nutrients totalNutrients = calculateTotalNutrients(date);
-                    Platform.runLater(() -> nutrientDataMap.put(date, totalNutrients));
+                    Platform.runLater(() -> {
+                        nutrientDataMap.put(date, totalNutrients);
+                        if (nutrientComboBox.getValue() != null) {
+                            updateChartForSelectedNutrient(nutrientComboBox.getValue(), date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), totalNutrients);
+                        }
+                    });
                 }
 
             } catch (Exception e) {
@@ -100,7 +106,6 @@ public class StatisticsController {
             }
         }).start();
     }
-
 
     private void populateNutrientComboBox() {
         nutrientComboBox.setItems(FXCollections.observableArrayList("Калории", "Белки", "Жиры", "Углеводы",
@@ -141,83 +146,96 @@ public class StatisticsController {
         return switch (nutrient) {
             case "Калории" -> "(ккал)";
             case "Белки", "Жиры", "Углеводы" -> "(г)";
-            case "Витамин A", "Витамин C", "Витамин D", "Витамин E", "Витамин K", "Витамин B12", "Кальций", "Железо",
+            case "Витамин A", "Витамин C", "Витамин D", "Витамин E", "Витамин K", "Витамин B12", "Кальций",
+                 "Железо",
                  "Магний", "Цинк", "Медь", "Селен" -> "(мг)";
             default -> "";
         };
     }
 
     private void displayDataForSelectedNutrient(String nutrient) {
-        nutrientDataMap.forEach((date, totalNutrients) -> Platform.runLater(() -> updateChartForSelectedNutrient(nutrient, date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), totalNutrients)));
+        Platform.runLater(() -> {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("Показатель");
+
+            // Сначала добавляем данные для норм
+            addNormLine(nutrientChart, nutrientNormMap.getOrDefault(nutrient, 0.0), "Ваша норма " + nutrient);
+
+            // Затем добавляем данные для выбранного нутриента
+            for (LocalDate date : nutrientDataMap.keySet()) {
+                Nutrients totalNutrients = nutrientDataMap.get(date);
+                double value = getNutrientValue(totalNutrients, nutrient);
+                XYChart.Data<String, Number> dataPoint = new XYChart.Data<>(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), value);
+                series.getData().add(dataPoint);
+                addDataLabel(dataPoint, String.valueOf(value));
+            }
+
+            nutrientChart.getData().add(series);
+        });
     }
+
 
     private void updateChartForSelectedNutrient(String nutrient, String date, Nutrients totalNutrients) {
         double normValue = nutrientNormMap.getOrDefault(nutrient, 0.0);
         double value = getNutrientValue(totalNutrients, nutrient);
-        updateChart(nutrientChart, date, value, normValue, "Ваша норма " + nutrient + " " + normValue + getUnitForNutrient(nutrient));
-    }
 
-    private double getNutrientValue(Nutrients nutrients, String nutrient) {
-        return switch (nutrient) {
-            case "Калории" -> nutrients.getMacroNutrients().getCalories();
-            case "Белки" -> nutrients.getMacroNutrients().getProteins();
-            case "Жиры" -> nutrients.getMacroNutrients().getFats();
-            case "Углеводы" -> nutrients.getMacroNutrients().getCarbs();
-            case "Витамин A" -> nutrients.getVitamins().getA();
-            case "Витамин C" -> nutrients.getVitamins().getC();
-            case "Витамин D" -> nutrients.getVitamins().getD();
-            case "Витамин E" -> nutrients.getVitamins().getE();
-            case "Витамин K" -> nutrients.getVitamins().getK();
-            case "Витамин B12" -> nutrients.getVitamins().getB12();
-            case "Кальций" -> nutrients.getMinerals().getCa();
-            case "Железо" -> nutrients.getMinerals().getFe();
-            case "Магний" -> nutrients.getMinerals().getMg();
-            case "Цинк" -> nutrients.getMinerals().getZn();
-            case "Медь" -> nutrients.getMinerals().getCu();
-            case "Селен" -> nutrients.getMinerals().getSe();
-            default -> 0.0;
-        };
-    }
-
-    private void updateChart(LineChart<String, Number> chart, String date, double value, double normValue, String normLabel) {
-        XYChart.Series<String, Number> series = chart.getData().isEmpty() ? new XYChart.Series<>() : chart.getData().get(0);
-        if (chart.getData().isEmpty()) {
-            chart.getData().add(series);
-            series.setName("Показатель");
-        }
+        XYChart.Series<String, Number> series = nutrientChart.getData().stream()
+                .filter(s -> "Показатель".equals(s.getName()))
+                .findFirst()
+                .orElseGet(() -> {
+                    XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
+                    newSeries.setName("Показатель");
+                    nutrientChart.getData().add(newSeries);
+                    return newSeries;
+                });
 
         XYChart.Data<String, Number> dataPoint = new XYChart.Data<>(date, value);
         series.getData().add(dataPoint);
         addDataLabel(dataPoint, String.valueOf(value));
 
-        addNormLine(chart, normValue, normLabel);
+        addNormLine(nutrientChart, normValue, "Ваша норма " + nutrient + " " + normValue + getUnitForNutrient(nutrient));
     }
 
-    private void addNormLine(LineChart<String, Number> chart, double normValue, String label) {
-        XYChart.Series<String, Number> existingNormSeries = chart.getData().stream()
-                .filter(series -> series.getName().equals(label))
-                .findFirst()
-                .orElse(null);
 
-        if (existingNormSeries != null) {
-            existingNormSeries.getData().clear();
-        } else {
-            existingNormSeries = new XYChart.Series<>();
-            existingNormSeries.setName(label);
-            chart.getData().add(existingNormSeries);
-        }
+    private double getNutrientValue(Nutrients nutrients, String nutrient) {
+        return switch (nutrient) {
+            case "Калории" -> Math.round(nutrients.getMacroNutrients().getCalories());
+            case "Белки" -> Math.round(nutrients.getMacroNutrients().getProteins());
+            case "Жиры" -> Math.round(nutrients.getMacroNutrients().getFats());
+            case "Углеводы" -> Math.round(nutrients.getMacroNutrients().getCarbs());
+            case "Витамин A" -> Math.round(nutrients.getVitamins().getA());
+            case "Витамин C" -> Math.round(nutrients.getVitamins().getC());
+            case "Витамин D" -> Math.round(nutrients.getVitamins().getD());
+            case "Витамин E" -> Math.round(nutrients.getVitamins().getE());
+            case "Витамин K" -> Math.round(nutrients.getVitamins().getK());
+            case "Витамин B12" -> Math.round(nutrients.getVitamins().getB12());
+            case "Кальций" -> Math.round(nutrients.getMinerals().getCa());
+            case "Железо" -> Math.round(nutrients.getMinerals().getFe());
+            case "Магний" -> Math.round(nutrients.getMinerals().getMg());
+            case "Цинк" -> Math.round(nutrients.getMinerals().getZn());
+            case "Медь" -> Math.round(nutrients.getMinerals().getCu());
+            case "Селен" -> Math.round(nutrients.getMinerals().getSe());
+            default -> 0.0;
+        };
+    }
+
+
+    private void addNormLine(LineChart<String, Number> chart, double normValue, String label) {
+        XYChart.Series<String, Number> existingNormSeries = new XYChart.Series<>();
+        existingNormSeries.setName(label);
 
         for (String date : xAxis.getCategories()) {
             XYChart.Data<String, Number> normDataPoint = new XYChart.Data<>(date, normValue);
             existingNormSeries.getData().add(normDataPoint);
             addDataLabel(normDataPoint, String.valueOf(normValue));
         }
+
+        Platform.runLater(() -> chart.getData().add(existingNormSeries));
     }
 
     private void addDataLabel(XYChart.Data<String, Number> dataPoint, String text) {
         Text dataText = new Text(text);
         dataText.setStyle("-fx-font-size: 10;");
-        dataText.setFill(Color.BLUE); // Цвет текста
         StackPane stackPane = new StackPane(dataText);
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.setPadding(new Insets(-10, 0, 0, 0));

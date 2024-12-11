@@ -16,15 +16,15 @@
             <padding>
                 <Insets top="10.0" right="10.0" bottom="20.0" left="10.0"/>
             </padding>
-            <Button onAction="#handleHome" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Главная</Button>
-            <Button onAction="#handleProfile" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Личный кабинет</Button>
-            <Button onAction="#handleDailyIntake" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Мои суточные нормы</Button>
-            <Button onAction="#handleMenu" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Меню</Button>
-            <Button onAction="#handlePlan" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">План питания</Button>
-            <Button onAction="#handleStats" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Моя статистика</Button>
-            <Button onAction="#handleUsers" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Пользователи</Button>
-            <Button onAction="#handleProducts" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Продукты</Button>
-            <Button onAction="#handleCategories" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Категории</Button>
+            <Button fx:id="homeButton" onAction="#handleHome" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Главная</Button>
+            <Button fx:id="profileButton" onAction="#handleProfile" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Личный кабинет</Button>
+            <Button fx:id="dailyIntakeButton" onAction="#handleDailyIntake" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Мои суточные нормы</Button>
+            <Button fx:id="menuButton" onAction="#handleMenu" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Меню</Button>
+            <Button fx:id="planButton" onAction="#handlePlan" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">План питания</Button>
+            <Button fx:id="statsButton" onAction="#handleStats" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Моя статистика</Button>
+            <Button fx:id="usersButton" onAction="#handleUsers" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Пользователи</Button>
+            <Button fx:id="productsButton" onAction="#handleProducts" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Продукты</Button>
+            <Button fx:id="categoriesButton" onAction="#handleCategories" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;">Категории</Button>
             <VBox alignment="BOTTOM_LEFT" spacing="10.0" style="-fx-pref-width: 200px;">
                 <HBox spacing="5.0" alignment="CENTER">
                     <ImageView fitHeight="16.0" fitWidth="16.0">

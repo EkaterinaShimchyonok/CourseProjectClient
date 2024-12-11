@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,10 +19,34 @@ public class MainController {
     @FXML
     private VBox mainContent;
 
+    @FXML
+    private Button usersButton;
+    @FXML
+    private Button productsButton;
+    @FXML
+    private Button categoriesButton;
+
     public User user;
 
     public void setUser(User user) {
         this.user = user;
+        // Проверка, является ли пользователь администратором, и скрытие кнопок при необходимости
+        if (!user.isAdmin()) {
+            hideAdminButtons();
+        }
+    }
+
+    @FXML
+    private void hideAdminButtons() {
+        if (usersButton != null) {
+            usersButton.setVisible(false);
+        }
+        if (productsButton != null) {
+            productsButton.setVisible(false);
+        }
+        if (categoriesButton != null) {
+            categoriesButton.setVisible(false);
+        }
     }
 
     @FXML

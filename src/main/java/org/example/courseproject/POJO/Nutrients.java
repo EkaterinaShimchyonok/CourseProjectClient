@@ -25,6 +25,11 @@ public class Nutrients {
         this.minerals = minerals;
     }
 
+    public Nutrients( Vitamins vitamins, Minerals minerals) {
+        this.vitamins = vitamins;
+        this.minerals = minerals;
+    }
+
     @XmlTransient
     public int getNutrientsID() {
         return nutrientsID;

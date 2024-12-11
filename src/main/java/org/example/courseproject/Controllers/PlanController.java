@@ -99,6 +99,8 @@ public class PlanController {
     private void loadPlan() {
         productListVBox.getChildren().clear();
         for (int i = 0; i < plan.getProducts().size(); i++) {
+            if (plan.getProducts().get(i).getProductID()==0)
+                continue;
             Product product = plan.getProducts().get(i);
             double weight = plan.getWeights().get(i);
 
@@ -244,7 +246,7 @@ public class PlanController {
     }
 
     private void calculatePlan() {
-        totalNutrients = new Nutrients(); // Сбрасываем значения totalNutrients с использованием конструктора по умолчанию
+        totalNutrients = new Nutrients();
 
         for (int i = 0; i < plan.getProducts().size(); i++) {
             Product product = plan.getProducts().get(i);
@@ -254,7 +256,11 @@ public class PlanController {
         }
 
         Nutrients norm = plan.getNorm();
+        setTotalInfo(norm);
+        plan.setTotalCal(Math.round(totalNutrients.getMacroNutrients().getCalories() * 10.0) / 10.0);
+    }
 
+    void setTotalInfo(Nutrients norm){
         totalCalories.setText("Калории: " + Math.round(totalNutrients.getMacroNutrients().getCalories() * 10.0) / 10.0 + " ккал (" + formatPercentage(totalNutrients.getMacroNutrients().getCalories(), norm.getMacroNutrients().getCalories()) + "%)");
         totalProteins.setText("Белки: " + Math.round(totalNutrients.getMacroNutrients().getProteins() * 10.0) / 10.0 + " г (" + formatPercentage(totalNutrients.getMacroNutrients().getProteins(), norm.getMacroNutrients().getProteins()) + "%)");
         totalFats.setText("Жиры: " + Math.round(totalNutrients.getMacroNutrients().getFats() * 10.0) / 10.0 + " г (" + formatPercentage(totalNutrients.getMacroNutrients().getFats(), norm.getMacroNutrients().getFats()) + "%)");
@@ -271,15 +277,13 @@ public class PlanController {
         totalZinc.setText("Цинк: " + Math.round(totalNutrients.getMinerals().getZn() * 10.0) / 10.0 + " мг (" + formatPercentage(totalNutrients.getMinerals().getZn(), norm.getMinerals().getZn()) + "%)");
         totalCopper.setText("Медь: " + Math.round(totalNutrients.getMinerals().getCu() * 10.0) / 10.0 + " мг (" + formatPercentage(totalNutrients.getMinerals().getCu(), norm.getMinerals().getCu()) + "%)");
         totalSelenium.setText("Селен: " + Math.round(totalNutrients.getMinerals().getSe() * 10.0) / 10.0 + " мкг (" + formatPercentage(totalNutrients.getMinerals().getSe(), norm.getMinerals().getSe()) + "%)");
-
-        plan.setTotalCal(Math.round(totalNutrients.getMacroNutrients().getCalories() * 10.0) / 10.0);
     }
 
 
     private String formatPercentage(double value, double norm) {
         double percentage = (value / norm) * 100;
         if (norm <= 0.0)
-            percentage = 0.0;
+            return "-";
         return String.format("%.1f", percentage);
     }
 

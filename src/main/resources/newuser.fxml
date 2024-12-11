@@ -12,7 +12,7 @@
         <TextField fx:id="emailInput" promptText="Email"/>
         <PasswordField fx:id="passwordInput" promptText="Password"/>
         <Button text="Зарегистрировать" onAction="#handleRegister" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-pref-width: 200px;"/>
-        </children>
+    </children>
     <padding>
         <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
     </padding>

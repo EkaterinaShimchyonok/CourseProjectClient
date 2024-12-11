@@ -60,11 +60,11 @@ public class AddUserController {
         }
 
         if (!isValidPassword(password)) {
-            responseLabel.setText("Пароль должен быть минимум 8 символов, содержать только латинские буквы, цифры и _");
+            responseLabel.setText("Пароль содержит более 8 символов (латинские буквы, цифры и _)");
             return;
         }
 
-        out.println("register;" + email + ";" + hashPassword(password));
+        out.println("user;register;" + email + "," + hashPassword(password));
         // Очистка формы после нажатия на кнопку регистрации
         emailInput.clear();
         passwordInput.clear();
